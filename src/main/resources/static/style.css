@@ -1,0 +1,44 @@
+h1,h2, h3 {
+    background-color: pink;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+h1 {
+    color:purple;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+header {
+    width:1000px;
+    margin: 0 20%;
+}
+main {
+    width:1000px;
+    margin: 0 20%;
+    background-color:rgb(218, 138, 138);
+    padding:30px 0px;
+
+}
+li {
+    list-style-type: none;
+    margin-bottom:1%;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+img {
+    width:300px;
+    height:300px;
+}
+
+div{
+    margin-bottom: 85px;
+    text-align:center;
+    background-color: rgb(218,110,110);
+    padding: 5%;
+}
+
