@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Songr</title>
+</head>
+<body>
+<header>
+    <h1>Albums List</h1>
+</header>
+<main>
+    <div th:each="album : ${albums}">
+        <h3 th:text="${album.title}"></h3>
+        <ul>
+            <li th:text="'Artist: ' + ${album.artist}"></li>
+            <li th:text="'Song count: ' + ${album.songCount}"></li>
+            <li th:text="'Length in seconds: ' + ${album.length}"></li>
+            <li><img th:src="${album.imgUrl}"/></li>
+        </ul>
+    </div>
+
+</main>
+<footer>
+
+</footer>
+
+</body>
+
+</html>

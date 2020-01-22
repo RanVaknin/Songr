@@ -1,13 +1,18 @@
 package com.rafaelsdiamonds.songr;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 public class SongrController {
+
+    @Autowired
+    AlbumRepository repo;
 
     @GetMapping("/")
     public String splash() {
@@ -20,19 +25,36 @@ public class SongrController {
         return "greeting";
     }
 
+    @PostMapping("/albums")
+    public RedirectView addAlbum(String title, String artist, int songCount, int length, String imgUrl) {
+        Album album = new Album(title, artist, songCount, length, imgUrl);
+        repo.save(album);
+        return new RedirectView("/albums");
+    }
+
+    @GetMapping("/albums")
+    public String rednerAlbums(Model m) {
+        List<Album> albums = repo.findAll();
+        m.addAttribute("albums", albums);
+        return "albums";
+    }
+
+    @GetMapping("/albums/{id}")
+    public String getOneAlbum(@PathVariable Long id, Model m) {
+
+        m.addAttribute("albums", repo.getOne(id));
+        return "singleAlbum";
+    }
+
     @GetMapping("/capitalize/{capitalizedRoute}")
     public String upperCase(@PathVariable String capitalizedRoute) {
         return capitalizedRoute.toUpperCase();
     }
 
-    @GetMapping("/albums")
-    public String albums(Model m) {
-        Album[] albums = new Album[]{
-                new Album("Kind Of Blue", "Miles Davis", 15, 2700, "https://upload.wikimedia.org/wikipedia/en/9/9c/MilesDavisKindofBlue.jpg"),
-                new Album("The Wall", "Pink Floyd", 26, 4800, "https://upload.wikimedia.org/wikipedia/en/thumb/c/cb/PinkFloydAnotherBrickCover.jpg/220px-PinkFloydAnotherBrickCover.jpg"),
-                new Album("Highway To Hell", "AC/DC", 10, 2460, "https://upload.wikimedia.org/wikipedia/en/a/ac/Acdc_Highway_to_Hell.JPG")
-        };
-        m.addAttribute("albums", albums);
-        return "albums";
+    @DeleteMapping ("/albums/{id}")
+    public RedirectView deleteOneAlbum(@PathVariable Long id) {
+        System.out.println("deleting");
+        repo.deleteById(id);
+        return new RedirectView("/albums");
     }
 }

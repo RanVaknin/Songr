@@ -17,7 +17,39 @@
             <li th:text="'Length in seconds: ' + ${album.length}"></li>
             <li><img th:src="${album.imgUrl}"/></li>
         </ul>
+        <form th:action="'/albums/'+${album.id}" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            <button type="submit">Delete</button>
+        </form>
     </div>
+
+    <form action="/albums" method="post">
+        <ul>
+            <li>
+                <label for="title">Album Title:</label>
+                <input type="text" id="title" name="title">
+            </li>
+            <li>
+                <label for="artist" >Artist:</label>
+                <input id="artist" name="artist">
+            </li>
+            <li>
+                <label for="length">Length:</label>
+                <input id="length" name="length"/>
+            </li>
+            <li>
+                <label for="imgUrl">ImgUrl:</label>
+                <input  id="imgUrl" name="imgUrl"/>
+            </li>
+            <li>
+                <label for="songCount">Song Count:</label>
+                <input  id="songCount" name="songCount"/>
+            </li>
+            <li class="button">
+                <button type="submit">Add Album</button>
+            </li>
+        </ul>
+    </form>
 
 </main>
 <footer>
