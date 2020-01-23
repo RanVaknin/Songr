@@ -17,6 +17,30 @@
             <li th:text="'Length in seconds: ' + ${album.length}"></li>
             <li><img th:src="${album.imgUrl}"/></li>
         </ul>
+        <h4 th:each="song : ${album.songList}">
+            <span th:text="${song.title} + ' is ' + ${song.length} + ' seconds long and number ' + ${song.trackNumber}"></span>
+            <form th:action="'/albums/'+${album.id} + '/songs'" method="post">
+                <input type="hidden" name="_method" value="DELETE" />
+            <button type="submit"> X </button></form>
+        </h4>
+
+        <h3>Add a song</h3>
+        <form th:action="'/albums/'+${album.id} + '/songs'" method="post">
+            <label for="song_title" >Title:</label>
+            <input id="song_title" name="title">
+            <br>
+            <label for="song_length" >Length:</label>
+            <input id="song_length" name="length">
+            <br>
+            <label for="trackNumber" >Track Number:</label>
+            <input id="trackNumber" name="trackNumber">
+            <br>
+            <input type="submit" value="Add song">
+        </form>
+
+        <br>
+
+
         <form th:action="'/albums/'+${album.id}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             <button type="submit">Delete</button>

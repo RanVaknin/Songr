@@ -1,9 +1,7 @@
 package com.rafaelsdiamonds.songr;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -17,6 +15,10 @@ public class Album {
     private int songCount;
     private int length;
     private String imgUrl;
+
+    @OneToMany(mappedBy = "album")
+    private List<Song> songList;
+
 
     public Album(String title, String artist, int songCount, int length, String imgUrl) {
         this.title = title;
@@ -54,4 +56,7 @@ public class Album {
         return imgUrl;
     }
 
+    public List<Song> getSongList() {
+        return songList;
+    }
 }

@@ -7,3 +7,5 @@ my app has 4 different routes:
 - / route splash page with a button to direct you to:
 
 - /albums path, show albums and information rendering from a hard coded array of Albums.
+
+- you are able to add and remove songs to an existing albums and it will be updated in the database.
