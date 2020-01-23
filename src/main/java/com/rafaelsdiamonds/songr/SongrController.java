@@ -14,6 +14,9 @@ public class SongrController {
     @Autowired
     AlbumRepository repo;
 
+    @Autowired
+    SongRepository songRepo;
+
     @GetMapping("/")
     public String splash() {
         return "index";
@@ -53,8 +56,22 @@ public class SongrController {
 
     @DeleteMapping ("/albums/{id}")
     public RedirectView deleteOneAlbum(@PathVariable Long id) {
-        System.out.println("deleting");
         repo.deleteById(id);
         return new RedirectView("/albums");
     }
+
+    @PostMapping("/albums/{id}/songs")
+    public RedirectView addSong(@PathVariable Long id, String title, int length, int trackNumber) {
+        Song song = new Song(title,length,trackNumber);
+        Album album = repo.getOne(id);
+        song.setAlbum(album);
+        songRepo.save(song);
+        return new RedirectView("/albums");
+    }
+    @DeleteMapping ("/albums/{id}/songs")
+    public RedirectView deleteOneSong(@PathVariable Long id) {
+        songRepo.deleteById(id);
+        return new RedirectView("/albums");
+    }
+
 }
